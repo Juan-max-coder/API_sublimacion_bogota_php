@@ -13,7 +13,6 @@ if ($conn->connect_error) {
         "message" => "Error en la conexión: " . $conn->connect_error
     ]));
 } else {
-    // Puedes dejar esto comentado para evitar que se muestre en producción
-    // echo json_encode(["status" => "success", "message" => "Conexión exitosa a la base de datos"]);
+    
 }
 ?>
