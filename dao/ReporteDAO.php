@@ -3,7 +3,6 @@
 class ReporteDAO {
     private $conn;
 
-    // Recibe la conexión a la base de datos
     public function __construct($conn) {
         $this->conn = $conn;
     }
@@ -11,11 +10,11 @@ class ReporteDAO {
     // CREATE - insertar reporte
     public function insertar($reporte) {
         $sql = "INSERT INTO reporte (tipoReporte, fechaReporte, Usuario_idUsuario)
-                VALUES ('$reporte->tipoReporte', '$reporte->fechaReporte', '$reporte->usuarioIdUsuario')";
+                VALUES ('$reporte->tipoReporte', '$reporte->fechaReporte', '$reporte->Usuario_idUsuario')";
         if ($this->conn->query($sql)) {
-            return ["status"=>"success","message"=>"Reporte registrado correctamente"];
+            return ["status" => "success", "message" => "Reporte registrado correctamente"];
         } else {
-            return ["status"=>"error","message"=>"Error al registrar reporte"];
+            return ["status" => "error", "message" => "Error al registrar reporte: " . $this->conn->error];
         }
     }
 
@@ -24,19 +23,25 @@ class ReporteDAO {
         $sql = "SELECT * FROM reporte";
         $result = $this->conn->query($sql);
         $reportes = [];
+
         while ($row = $result->fetch_assoc()) {
             $reportes[] = $row;
         }
-        return ["status"=>"success","data"=>$reportes];
+
+        return ["status" => "success", "data" => $reportes];
     }
 
     // UPDATE - actualizar reporte
     public function actualizar($reporte) {
-        $sql = "UPDATE reporte SET tipoReporte='$reporte->tipoReporte', fechaReporte='$reporte->fechaReporte', Usuario_idUsuario='$reporte->usuarioIdUsuario' WHERE idReporte=$reporte->idReporte";
+        $sql = "UPDATE reporte SET 
+                    tipoReporte='$reporte->tipoReporte',
+                    fechaReporte='$reporte->fechaReporte',
+                    Usuario_idUsuario='$reporte->Usuario_idUsuario'
+                WHERE idReporte=$reporte->idReporte";
         if ($this->conn->query($sql)) {
-            return ["status"=>"success","message"=>"Reporte actualizado correctamente"];
+            return ["status" => "success", "message" => "Reporte actualizado correctamente"];
         } else {
-            return ["status"=>"error","message"=>"Error al actualizar reporte"];
+            return ["status" => "error", "message" => "Error al actualizar reporte: " . $this->conn->error];
         }
     }
 
@@ -44,9 +49,9 @@ class ReporteDAO {
     public function eliminar($idReporte) {
         $sql = "DELETE FROM reporte WHERE idReporte=$idReporte";
         if ($this->conn->query($sql)) {
-            return ["status"=>"success","message"=>"Reporte eliminado correctamente"];
+            return ["status" => "success", "message" => "Reporte eliminado correctamente"];
         } else {
-            return ["status"=>"error","message"=>"Error al eliminar reporte"];
+            return ["status" => "error", "message" => "Error al eliminar reporte: " . $this->conn->error];
         }
     }
 }

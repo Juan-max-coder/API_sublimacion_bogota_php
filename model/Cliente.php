@@ -1,17 +1,21 @@
 <?php
-// Clase que representa la tabla Cliente en la base de datos
 class Cliente {
     public $idCliente;
-    public $nombre;
-    public $correo;
-    public $telefono;
+    public $nombreCliente;
+    public $apellidoCliente;
+    public $direccionCliente;
+    public $telefonoCliente;
+    public $correoCliente;
+    public $tipoCliente;
 
-    // Constructor para inicializar los datos del cliente
-    public function __construct($idCliente = null, $nombre = null, $correo = null, $telefono = null) {
+    public function __construct($idCliente = null, $nombreCliente = null, $apellidoCliente = null, $direccionCliente = null, $telefonoCliente = null, $correoCliente = null, $tipoCliente = null) {
         $this->idCliente = $idCliente;
-        $this->nombre = $nombre;
-        $this->correo = $correo;
-        $this->telefono = $telefono;
+        $this->nombreCliente = $nombreCliente;
+        $this->apellidoCliente = $apellidoCliente;
+        $this->direccionCliente = $direccionCliente;
+        $this->telefonoCliente = $telefonoCliente;
+        $this->correoCliente = $correoCliente;
+        $this->tipoCliente = $tipoCliente;
     }
 }
 ?>

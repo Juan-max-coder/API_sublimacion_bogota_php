@@ -1,20 +1,17 @@
 <?php
-// Clase que maneja las consultas SQL relacionadas con los clientes
 class ClienteDAO {
     private $conn;
 
-    // Recibe la conexión a la base de datos
     public function __construct($conn) {
         $this->conn = $conn;
     }
 
-    // Método para listar todos los clientes
+    // Listar todos los clientes
     public function listar() {
         $sql = "SELECT * FROM cliente";
         $result = $this->conn->query($sql);
         $clientes = [];
 
-        // Recorre los resultados y los guarda en un arreglo
         while ($row = $result->fetch_assoc()) {
             $clientes[] = $row;
         }
@@ -22,33 +19,41 @@ class ClienteDAO {
         return ["status" => "success", "data" => $clientes];
     }
 
-    // Método para registrar un nuevo cliente
+    // Registrar nuevo cliente
     public function registrar($cliente) {
-        $sql = "INSERT INTO cliente (nombre, correo, telefono) VALUES ('$cliente->nombre', '$cliente->correo', '$cliente->telefono')";
+        $sql = "INSERT INTO cliente (nombreCliente, apellidoCliente, direccionCliente, telefonoCliente, correoCliente, tipoCliente)
+                VALUES ('$cliente->nombreCliente', '$cliente->apellidoCliente', '$cliente->direccionCliente', '$cliente->telefonoCliente', '$cliente->correoCliente', '$cliente->tipoCliente')";
         if ($this->conn->query($sql)) {
             return ["status" => "success", "message" => "Cliente registrado correctamente"];
         } else {
-            return ["status" => "error", "message" => "Error al registrar cliente"];
+            return ["status" => "error", "message" => "Error al registrar cliente: " . $this->conn->error];
         }
     }
 
-    // Método para actualizar los datos de un cliente
+    // Actualizar cliente existente
     public function actualizar($cliente) {
-        $sql = "UPDATE cliente SET nombre='$cliente->nombre', correo='$cliente->correo', telefono='$cliente->telefono' WHERE idCliente=$cliente->idCliente";
+        $sql = "UPDATE cliente SET 
+                    nombreCliente='$cliente->nombreCliente', 
+                    apellidoCliente='$cliente->apellidoCliente', 
+                    direccionCliente='$cliente->direccionCliente', 
+                    telefonoCliente='$cliente->telefonoCliente', 
+                    correoCliente='$cliente->correoCliente', 
+                    tipoCliente='$cliente->tipoCliente' 
+                WHERE idCliente=$cliente->idCliente";
         if ($this->conn->query($sql)) {
             return ["status" => "success", "message" => "Cliente actualizado correctamente"];
         } else {
-            return ["status" => "error", "message" => "Error al actualizar cliente"];
+            return ["status" => "error", "message" => "Error al actualizar cliente: " . $this->conn->error];
         }
     }
 
-    // Método para eliminar un cliente por su ID
-    public function eliminar($id) {
-        $sql = "DELETE FROM cliente WHERE idCliente=$id";
+    // Eliminar cliente por ID
+    public function eliminar($idCliente) {
+        $sql = "DELETE FROM cliente WHERE idCliente=$idCliente";
         if ($this->conn->query($sql)) {
             return ["status" => "success", "message" => "Cliente eliminado correctamente"];
         } else {
-            return ["status" => "error", "message" => "Error al eliminar cliente"];
+            return ["status" => "error", "message" => "Error al eliminar cliente: " . $this->conn->error];
         }
     }
 }

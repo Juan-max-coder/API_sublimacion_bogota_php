@@ -3,19 +3,18 @@
 class UsuarioDAO {
     private $conn;
 
-    // Recibe la conexión a la base de datos
     public function __construct($conn) {
         $this->conn = $conn;
     }
 
     // CREATE - insertar usuario
     public function insertar($usuario) {
-        $sql = "INSERT INTO usuario (nombreUsuario, apellidoUsuario, correoUsuario, contrasenaUsuario)
-                VALUES ('$usuario->nombreUsuario', '$usuario->apellidoUsuario', '$usuario->correoUsuario', '$usuario->contrasenaUsuario')";
+        $sql = "INSERT INTO usuario (correoUsuario, contrasenaUsuario, rolUsuario)
+                VALUES ('$usuario->correoUsuario', '$usuario->contrasenaUsuario', '$usuario->rolUsuario')";
         if ($this->conn->query($sql)) {
-            return ["status"=>"success","message"=>"Usuario registrado correctamente"];
+            return ["status" => "success", "message" => "Usuario registrado correctamente"];
         } else {
-            return ["status"=>"error","message"=>"Error al registrar usuario"];
+            return ["status" => "error", "message" => "Error al registrar usuario: " . $this->conn->error];
         }
     }
 
@@ -24,10 +23,12 @@ class UsuarioDAO {
         $sql = "SELECT * FROM usuario";
         $result = $this->conn->query($sql);
         $usuarios = [];
+
         while ($row = $result->fetch_assoc()) {
             $usuarios[] = $row;
         }
-        return ["status"=>"success","data"=>$usuarios];
+
+        return ["status" => "success", "data" => $usuarios];
     }
 
     // READ - consultar por correo
@@ -35,19 +36,23 @@ class UsuarioDAO {
         $sql = "SELECT * FROM usuario WHERE correoUsuario='$correoUsuario'";
         $result = $this->conn->query($sql);
         if ($row = $result->fetch_assoc()) {
-            return ["status"=>"success","data"=>$row];
+            return ["status" => "success", "data" => $row];
         } else {
-            return ["status"=>"error","message"=>"Usuario no encontrado"];
+            return ["status" => "error", "message" => "Usuario no encontrado"];
         }
     }
 
     // UPDATE - actualizar usuario
     public function actualizar($usuario) {
-        $sql = "UPDATE usuario SET nombreUsuario='$usuario->nombreUsuario', apellidoUsuario='$usuario->apellidoUsuario', correoUsuario='$usuario->correoUsuario', contrasenaUsuario='$usuario->contrasenaUsuario' WHERE idUsuario=$usuario->idUsuario";
+        $sql = "UPDATE usuario SET 
+                    correoUsuario='$usuario->correoUsuario',
+                    contrasenaUsuario='$usuario->contrasenaUsuario',
+                    rolUsuario='$usuario->rolUsuario'
+                WHERE idUsuario=$usuario->idUsuario";
         if ($this->conn->query($sql)) {
-            return ["status"=>"success","message"=>"Usuario actualizado correctamente"];
+            return ["status" => "success", "message" => "Usuario actualizado correctamente"];
         } else {
-            return ["status"=>"error","message"=>"Error al actualizar usuario"];
+            return ["status" => "error", "message" => "Error al actualizar usuario: " . $this->conn->error];
         }
     }
 
@@ -55,9 +60,9 @@ class UsuarioDAO {
     public function eliminar($idUsuario) {
         $sql = "DELETE FROM usuario WHERE idUsuario=$idUsuario";
         if ($this->conn->query($sql)) {
-            return ["status"=>"success","message"=>"Usuario eliminado correctamente"];
+            return ["status" => "success", "message" => "Usuario eliminado correctamente"];
         } else {
-            return ["status"=>"error","message"=>"Error al eliminar usuario"];
+            return ["status" => "error", "message" => "Error al eliminar usuario: " . $this->conn->error];
         }
     }
 }

@@ -4,14 +4,14 @@ class Reporte {
     public $idReporte;
     public $tipoReporte;
     public $fechaReporte;
-    public $usuarioIdUsuario;
+    public $Usuario_idUsuario;
 
     // Constructor para inicializar los datos del reporte
-    public function __construct($idReporte = null, $tipoReporte = null, $fechaReporte = null, $usuarioIdUsuario = null) {
+    public function __construct($idReporte = null, $tipoReporte = null, $fechaReporte = null, $Usuario_idUsuario = null) {
         $this->idReporte = $idReporte;
         $this->tipoReporte = $tipoReporte;
         $this->fechaReporte = $fechaReporte;
-        $this->usuarioIdUsuario = $usuarioIdUsuario;
+        $this->Usuario_idUsuario = $Usuario_idUsuario;
     }
 }
 ?>

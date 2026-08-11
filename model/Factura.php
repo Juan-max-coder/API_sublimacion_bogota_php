@@ -5,15 +5,14 @@ class Factura {
     public $estadoFactura;
     public $fechaExportacionFactura;
     public $fechaConfirmacionFactura;
-    public $pedidoIdPedido;
+    public $Pedido_idPedido;
 
-    // Constructor para inicializar los datos
-    public function __construct($idFactura = null, $estadoFactura = null, $fechaExportacionFactura = null, $fechaConfirmacionFactura = null, $pedidoIdPedido = null) {
+    public function __construct($idFactura = null, $estadoFactura = null, $fechaExportacionFactura = null, $fechaConfirmacionFactura = null, $Pedido_idPedido = null) {
         $this->idFactura = $idFactura;
         $this->estadoFactura = $estadoFactura;
         $this->fechaExportacionFactura = $fechaExportacionFactura;
         $this->fechaConfirmacionFactura = $fechaConfirmacionFactura;
-        $this->pedidoIdPedido = $pedidoIdPedido;
+        $this->Pedido_idPedido = $Pedido_idPedido;
     }
 }
 ?>

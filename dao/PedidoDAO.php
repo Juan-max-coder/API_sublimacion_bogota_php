@@ -3,7 +3,6 @@
 class PedidoDAO {
     private $conn;
 
-    // Recibe la conexión a la base de datos
     public function __construct($conn) {
         $this->conn = $conn;
     }
@@ -11,11 +10,11 @@ class PedidoDAO {
     // CREATE - insertar pedido
     public function insertar($pedido) {
         $sql = "INSERT INTO pedido (fechaRegistroPedido, estadoPedido, prioridadPedido, fechaEntregaEstimadaPedido, Material_idMaterial, Cliente_idCliente, Empleado_idEmpleado)
-                VALUES ('$pedido->fechaRegistroPedido', '$pedido->estadoPedido', '$pedido->prioridadPedido', '$pedido->fechaEntregaEstimadaPedido', '$pedido->materialIdMaterial', '$pedido->clienteIdCliente', '$pedido->empleadoIdEmpleado')";
+                VALUES ('$pedido->fechaRegistroPedido', '$pedido->estadoPedido', '$pedido->prioridadPedido', '$pedido->fechaEntregaEstimadaPedido', '$pedido->Material_idMaterial', '$pedido->Cliente_idCliente', '$pedido->Empleado_idEmpleado')";
         if ($this->conn->query($sql)) {
-            return ["status"=>"success","message"=>"Pedido registrado correctamente"];
+            return ["status" => "success", "message" => "Pedido registrado correctamente"];
         } else {
-            return ["status"=>"error","message"=>"Error al registrar pedido"];
+            return ["status" => "error", "message" => "Error al registrar pedido: " . $this->conn->error];
         }
     }
 
@@ -24,19 +23,29 @@ class PedidoDAO {
         $sql = "SELECT * FROM pedido";
         $result = $this->conn->query($sql);
         $pedidos = [];
+
         while ($row = $result->fetch_assoc()) {
             $pedidos[] = $row;
         }
-        return ["status"=>"success","data"=>$pedidos];
+
+        return ["status" => "success", "data" => $pedidos];
     }
 
     // UPDATE - actualizar pedido
     public function actualizar($pedido) {
-        $sql = "UPDATE pedido SET fechaRegistroPedido='$pedido->fechaRegistroPedido', estadoPedido='$pedido->estadoPedido', prioridadPedido='$pedido->prioridadPedido', fechaEntregaEstimadaPedido='$pedido->fechaEntregaEstimadaPedido', Material_idMaterial='$pedido->materialIdMaterial', Cliente_idCliente='$pedido->clienteIdCliente', Empleado_idEmpleado='$pedido->empleadoIdEmpleado' WHERE idPedido=$pedido->idPedido";
+        $sql = "UPDATE pedido SET 
+                    fechaRegistroPedido='$pedido->fechaRegistroPedido',
+                    estadoPedido='$pedido->estadoPedido',
+                    prioridadPedido='$pedido->prioridadPedido',
+                    fechaEntregaEstimadaPedido='$pedido->fechaEntregaEstimadaPedido',
+                    Material_idMaterial='$pedido->Material_idMaterial',
+                    Cliente_idCliente='$pedido->Cliente_idCliente',
+                    Empleado_idEmpleado='$pedido->Empleado_idEmpleado'
+                WHERE idPedido=$pedido->idPedido";
         if ($this->conn->query($sql)) {
-            return ["status"=>"success","message"=>"Pedido actualizado correctamente"];
+            return ["status" => "success", "message" => "Pedido actualizado correctamente"];
         } else {
-            return ["status"=>"error","message"=>"Error al actualizar pedido"];
+            return ["status" => "error", "message" => "Error al actualizar pedido: " . $this->conn->error];
         }
     }
 
@@ -44,9 +53,9 @@ class PedidoDAO {
     public function eliminar($idPedido) {
         $sql = "DELETE FROM pedido WHERE idPedido=$idPedido";
         if ($this->conn->query($sql)) {
-            return ["status"=>"success","message"=>"Pedido eliminado correctamente"];
+            return ["status" => "success", "message" => "Pedido eliminado correctamente"];
         } else {
-            return ["status"=>"error","message"=>"Error al eliminar pedido"];
+            return ["status" => "error", "message" => "Error al eliminar pedido: " . $this->conn->error];
         }
     }
 }

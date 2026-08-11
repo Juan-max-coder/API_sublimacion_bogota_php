@@ -5,15 +5,14 @@ class InventarioMovimiento {
     public $tipoMovimiento;
     public $cantidadDelMovimiento;
     public $detallesDelMaterialEnMovimiento;
-    public $materialIdMaterial;
+    public $Material_idMaterial;
 
-    // Constructor para inicializar los datos del movimiento
-    public function __construct($idMovimiento = null, $tipoMovimiento = null, $cantidadDelMovimiento = null, $detallesDelMaterialEnMovimiento = null, $materialIdMaterial = null) {
+    public function __construct($idMovimiento = null, $tipoMovimiento = null, $cantidadDelMovimiento = null, $detallesDelMaterialEnMovimiento = null, $Material_idMaterial = null) {
         $this->idMovimiento = $idMovimiento;
         $this->tipoMovimiento = $tipoMovimiento;
         $this->cantidadDelMovimiento = $cantidadDelMovimiento;
         $this->detallesDelMaterialEnMovimiento = $detallesDelMaterialEnMovimiento;
-        $this->materialIdMaterial = $materialIdMaterial;
+        $this->Material_idMaterial = $Material_idMaterial;
     }
 }
 ?>

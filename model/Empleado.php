@@ -6,16 +6,16 @@ class Empleado {
     public $cargoEmpleado;
     public $areaEmpleado;
     public $contactoEmpleado;
-    public $usuarioIdUsuario;
+    public $Usuario_idUsuario;
 
     // Constructor para inicializar los datos del empleado
-    public function __construct($idEmpleado = null, $nombreEmpleado = null, $cargoEmpleado = null, $areaEmpleado = null, $contactoEmpleado = null, $usuarioIdUsuario = null) {
+    public function __construct($idEmpleado = null, $nombreEmpleado = null, $cargoEmpleado = null, $areaEmpleado = null, $contactoEmpleado = null, $Usuario_idUsuario = null) {
         $this->idEmpleado = $idEmpleado;
         $this->nombreEmpleado = $nombreEmpleado;
         $this->cargoEmpleado = $cargoEmpleado;
         $this->areaEmpleado = $areaEmpleado;
         $this->contactoEmpleado = $contactoEmpleado;
-        $this->usuarioIdUsuario = $usuarioIdUsuario;
+        $this->Usuario_idUsuario = $Usuario_idUsuario;
     }
 }
 ?>

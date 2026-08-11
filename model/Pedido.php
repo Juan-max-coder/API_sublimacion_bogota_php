@@ -6,20 +6,20 @@ class Pedido {
     public $estadoPedido;
     public $prioridadPedido;
     public $fechaEntregaEstimadaPedido;
-    public $materialIdMaterial;
-    public $clienteIdCliente;
-    public $empleadoIdEmpleado;
+    public $Material_idMaterial;
+    public $Cliente_idCliente;
+    public $Empleado_idEmpleado;
 
     // Constructor para inicializar los datos del pedido
-    public function __construct($idPedido = null, $fechaRegistroPedido = null, $estadoPedido = null, $prioridadPedido = null, $fechaEntregaEstimadaPedido = null, $materialIdMaterial = null, $clienteIdCliente = null, $empleadoIdEmpleado = null) {
+    public function __construct($idPedido = null, $fechaRegistroPedido = null, $estadoPedido = null, $prioridadPedido = null, $fechaEntregaEstimadaPedido = null, $Material_idMaterial = null, $Cliente_idCliente = null, $Empleado_idEmpleado = null) {
         $this->idPedido = $idPedido;
         $this->fechaRegistroPedido = $fechaRegistroPedido;
         $this->estadoPedido = $estadoPedido;
         $this->prioridadPedido = $prioridadPedido;
         $this->fechaEntregaEstimadaPedido = $fechaEntregaEstimadaPedido;
-        $this->materialIdMaterial = $materialIdMaterial;
-        $this->clienteIdCliente = $clienteIdCliente;
-        $this->empleadoIdEmpleado = $empleadoIdEmpleado;
+        $this->Material_idMaterial = $Material_idMaterial;
+        $this->Cliente_idCliente = $Cliente_idCliente;
+        $this->Empleado_idEmpleado = $Empleado_idEmpleado;
     }
 }
 ?>

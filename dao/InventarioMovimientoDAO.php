@@ -3,7 +3,6 @@
 class InventarioMovimientoDAO {
     private $conn;
 
-    // Recibe la conexión a la base de datos
     public function __construct($conn) {
         $this->conn = $conn;
     }
@@ -11,11 +10,11 @@ class InventarioMovimientoDAO {
     // CREATE - insertar movimiento
     public function insertar($movimiento) {
         $sql = "INSERT INTO inventariomovimiento (tipoMovimiento, cantidadDelMovimiento, detallesDelMaterialEnMovimiento, Material_idMaterial)
-                VALUES ('$movimiento->tipoMovimiento', '$movimiento->cantidadDelMovimiento', '$movimiento->detallesDelMaterialEnMovimiento', '$movimiento->materialIdMaterial')";
+                VALUES ('$movimiento->tipoMovimiento', '$movimiento->cantidadDelMovimiento', '$movimiento->detallesDelMaterialEnMovimiento', '$movimiento->Material_idMaterial')";
         if ($this->conn->query($sql)) {
-            return ["status"=>"success","message"=>"Movimiento registrado correctamente"];
+            return ["status" => "success", "message" => "Movimiento registrado correctamente"];
         } else {
-            return ["status"=>"error","message"=>"Error al registrar movimiento"];
+            return ["status" => "error", "message" => "Error al registrar movimiento: " . $this->conn->error];
         }
     }
 
@@ -24,19 +23,26 @@ class InventarioMovimientoDAO {
         $sql = "SELECT * FROM inventariomovimiento";
         $result = $this->conn->query($sql);
         $movimientos = [];
+
         while ($row = $result->fetch_assoc()) {
             $movimientos[] = $row;
         }
-        return ["status"=>"success","data"=>$movimientos];
+
+        return ["status" => "success", "data" => $movimientos];
     }
 
     // UPDATE - actualizar movimiento
     public function actualizar($movimiento) {
-        $sql = "UPDATE inventariomovimiento SET tipoMovimiento='$movimiento->tipoMovimiento', cantidadDelMovimiento='$movimiento->cantidadDelMovimiento', detallesDelMaterialEnMovimiento='$movimiento->detallesDelMaterialEnMovimiento', Material_idMaterial='$movimiento->materialIdMaterial' WHERE idMovimiento=$movimiento->idMovimiento";
+        $sql = "UPDATE inventariomovimiento SET 
+                    tipoMovimiento='$movimiento->tipoMovimiento',
+                    cantidadDelMovimiento='$movimiento->cantidadDelMovimiento',
+                    detallesDelMaterialEnMovimiento='$movimiento->detallesDelMaterialEnMovimiento',
+                    Material_idMaterial='$movimiento->Material_idMaterial'
+                WHERE idMovimiento=$movimiento->idMovimiento";
         if ($this->conn->query($sql)) {
-            return ["status"=>"success","message"=>"Movimiento actualizado correctamente"];
+            return ["status" => "success", "message" => "Movimiento actualizado correctamente"];
         } else {
-            return ["status"=>"error","message"=>"Error al actualizar movimiento"];
+            return ["status" => "error", "message" => "Error al actualizar movimiento: " . $this->conn->error];
         }
     }
 
@@ -44,9 +50,9 @@ class InventarioMovimientoDAO {
     public function eliminar($idMovimiento) {
         $sql = "DELETE FROM inventariomovimiento WHERE idMovimiento=$idMovimiento";
         if ($this->conn->query($sql)) {
-            return ["status"=>"success","message"=>"Movimiento eliminado correctamente"];
+            return ["status" => "success", "message" => "Movimiento eliminado correctamente"];
         } else {
-            return ["status"=>"error","message"=>"Error al eliminar movimiento"];
+            return ["status" => "error", "message" => "Error al eliminar movimiento: " . $this->conn->error];
         }
     }
 }
